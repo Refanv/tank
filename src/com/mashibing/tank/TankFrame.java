@@ -14,15 +14,12 @@ import java.util.List;
 
 public class TankFrame extends Frame {
 
-	Tank myTank = new Tank(200, 400, Dir.DOWN, Group.GOOD, this);
-	List<Bullet> bullets = new ArrayList<>();
-	List<Tank> tanks = new ArrayList<>();
-	List<Explode> explodes = new ArrayList<>();
-	
-	
 	static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;
 
-	public TankFrame() {
+	GameModel gameModel = GameModel.getGm();
+
+	public TankFrame()
+	{
 		setSize(GAME_WIDTH, GAME_HEIGHT);
 		setResizable(false);
 		setTitle("tank war");
@@ -30,20 +27,20 @@ public class TankFrame extends Frame {
 
 		this.addKeyListener(new MyKeyListener());
 
-		addWindowListener(new WindowAdapter() {
-
+		addWindowListener(new WindowAdapter()
+		{
 			@Override
 			public void windowClosing(WindowEvent e) { // bjmashibing/tank
 				System.exit(0);
 			}
-
 		});
 	}
 
 	Image offScreenImage = null;
 
 	@Override
-	public void update(Graphics g) {
+	public void update(Graphics g)
+	{
 		if (offScreenImage == null) {
 			offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
 		}
@@ -57,48 +54,13 @@ public class TankFrame extends Frame {
 	}
 
 	@Override
-	public void paint(Graphics g) {
-		Color c = g.getColor();
-		g.setColor(Color.WHITE);
-		g.drawString("子弹的数量:" + bullets.size(), 10, 60);
-		g.drawString("敌人的数量:" + tanks.size(), 10, 80);
-		g.drawString("爆炸的数量:" + explodes.size(), 10, 100);
-		g.setColor(c);
-
-		myTank.paint(g);
-		for (int i = 0; i < bullets.size(); i++) {
-			bullets.get(i).paint(g);
-		}
-		
-		for (int i = 0; i < tanks.size(); i++) {
-			tanks.get(i).paint(g);
-		}
-		
-		for (int i = 0; i < explodes.size(); i++) {
-			explodes.get(i).paint(g);
-		}
-		//collision detect 
-
-		for(int i=0; i<bullets.size(); i++) {
-			for(int j = 0; j<tanks.size(); j++) 
-				bullets.get(i).collideWith(tanks.get(j));
-		}
-		
-		
-		
-		// for(Iterator<Bullet> it = bullets.iterator(); it.hasNext();) {
-		// Bullet b = it.next();
-		// if(!b.live) it.remove();
-		// }
-
-		// for(Bullet b : bullets) {
-		// b.paint(g);
-		// }
-
+	public void paint(Graphics g)
+	{
+		gameModel.paint(g);
 	}
 
-	class MyKeyListener extends KeyAdapter {
-
+	class MyKeyListener extends KeyAdapter
+	{
 		boolean bL = false;
 		boolean bU = false;
 		boolean bR = false;
@@ -148,7 +110,7 @@ public class TankFrame extends Frame {
 				break;
 
 			case KeyEvent.VK_CONTROL:
-				myTank.fire();
+				gameModel.getMainTank().fire();
 				break;
 
 			default:
@@ -158,8 +120,9 @@ public class TankFrame extends Frame {
 			setMainTankDir();
 		}
 
-		private void setMainTankDir() {
-
+		private void setMainTankDir()
+		{
+			Tank myTank = gameModel.getMainTank();
 			if (!bL && !bU && !bR && !bD)
 				myTank.setMoving(false);
 			else {

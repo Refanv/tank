@@ -4,45 +4,41 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
 
-public class Tank {
+public class Tank extends GameObjects{
 	private static final int SPEED = 2;
 	public static int WIDTH = ResourceMgr.goodTankU.getWidth();
-
 	public static int HEIGHT = ResourceMgr.goodTankU.getHeight();
-	
-	Rectangle rect = new Rectangle();
-	
-	private Random random = new Random();
+    private Dir dir = Dir.DOWN;
+    private Group group = Group.BAD;
+    private boolean moving = true;
+    private boolean living = true;
+    private Random random = new Random();
 
-	private int x, y;
+    private int x, y;
 
-	private Dir dir = Dir.DOWN;
+    GameModel gameModel;
+    FireStrategy<Tank> fireStrategy;
+    Rectangle rect = new Rectangle();
 
-	private boolean moving = true;
-	private TankFrame tf = null;
-	private boolean living = true;
-	private Group group = Group.BAD;
-	
-	public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
+	public Tank(int x, int y, Dir dir, Group group, GameModel gameModel) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
 		this.group = group;
-		this.tf = tf;
-		
+		if (group == Group.GOOD) fireStrategy = new FourDirFireStrtegy();
+		else fireStrategy = new DefaultFireStrtegy();
+
+		this.gameModel = gameModel;
+
 		rect.x = this.x;
 		rect.y = this.y;
 		rect.width = WIDTH;
 		rect.height = HEIGHT;
 	}
+
 	public void fire() {
-		int bX = this.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
-		int bY = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
-		
-		tf.bullets.add(new Bullet(bX, bY, this.dir, this.group, this.tf));
-		
-		if(this.group == Group.GOOD) new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
+	    fireStrategy.fire(this);
 	}
 	
 	public Dir getDir() {
@@ -112,11 +108,9 @@ public class Tank {
 		this.dir = Dir.values()[random.nextInt(4)];
 	}
 	
-	public void paint(Graphics g) {
-		if(!living) tf.tanks.remove(this);
-		
-		
-		
+	public void paint(Graphics g)
+    {
+		if(!living) gameModel.add(this);
 		switch(dir) {
 		case LEFT:
 			g.drawImage(this.group == Group.GOOD? ResourceMgr.goodTankL : ResourceMgr.badTankL, x, y, null);
