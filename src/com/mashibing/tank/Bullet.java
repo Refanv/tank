@@ -88,20 +88,20 @@ public class Bullet extends GameObjects{
 		
 	}
 
-	public void collideWith(Tank tank) {
-		if(this.group == tank.getGroup()) return;
-		
-		if(rect.intersects(tank.rect)) {
-			tank.die();
-			this.die();
-			int eX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
-			int eY = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
-			gameModel.add(new Explode(eX, eY, gameModel));
-		}
-		
-	}
+//	public void collideWith(Tank tank) {
+//		if(this.group == tank.getGroup()) return;
+//
+//		if(rect.intersects(tank.rect)) {
+//			tank.die();
+//			this.die();
+//			int eX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
+//			int eY = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
+//			gameModel.add(new Explode(eX, eY, gameModel));
+//		}
+//
+//	}
 
-	private void die() {
+	void die() {
 		this.living = false;
 	}
 }
