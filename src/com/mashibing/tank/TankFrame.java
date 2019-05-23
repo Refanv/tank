@@ -16,8 +16,6 @@ public class TankFrame extends Frame {
 
 	static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;
 
-	GameModel gameModel = GameModel.getGm();
-
 	public TankFrame()
 	{
 		setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -56,7 +54,7 @@ public class TankFrame extends Frame {
 	@Override
 	public void paint(Graphics g)
 	{
-		gameModel.paint(g);
+		GameModel.getGm().paint(g);
 	}
 
 	class MyKeyListener extends KeyAdapter
@@ -111,7 +109,7 @@ public class TankFrame extends Frame {
 				break;
 
 			case KeyEvent.VK_CONTROL:
-				gameModel.getMainTank().fire();
+				GameModel.getGm().getMainTank().fire();
 				break;
 
 			default:
@@ -123,7 +121,7 @@ public class TankFrame extends Frame {
 
 		private void setMainTankDir()
 		{
-			Tank myTank = gameModel.getMainTank();
+			Tank myTank = GameModel.getGm().getMainTank();
 
 			if (!bL && !bU && !bR && !bD)
 				myTank.setMoving(false);

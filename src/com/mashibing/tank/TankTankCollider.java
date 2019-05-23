@@ -11,13 +11,11 @@ public class TankTankCollider implements Collider {
         return true;
     }
 
-    private void collideWith(Tank gameObjects1, Tank gameObjects2) {
-        if (gameObjects1.rect.intersects(gameObjects2.rect))
+    private void collideWith(Tank tank1, Tank tank2) {
+        if (tank1.rect.intersects(tank2.rect))
         {
-            gameObjects1.setX(gameObjects1.oldX);
-            gameObjects1.setY(gameObjects1.oldY);
-            gameObjects2.setX(gameObjects2.oldX);
-            gameObjects2.setY(gameObjects2.oldY);
+            tank1.back();
+            tank2.back();
         }
     }
 }
