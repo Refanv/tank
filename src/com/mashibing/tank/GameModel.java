@@ -13,10 +13,10 @@ public class GameModel {
     private Collider collider = new BulletTankCollider();
 
     private GameModel() {
-        int initTankCount = Integer.parseInt((String) PropertyMgr.get("initTankCount"));
+        int initTankCount = Integer.parseInt(PropertyMgr.get("initTankCount"));
         //初始化敌方坦克
         for (int i = 0; i < initTankCount; i++) {
-            objects.add(new Tank(50 + i * 80, 200, Dir.DOWN, Group.BAD, this));
+            add(new Tank(50 + i * 80, 200, Dir.DOWN, Group.BAD, this));
         }
 
     }
@@ -25,14 +25,8 @@ public class GameModel {
         return gm;
     }
 
-    public void paint(Graphics g) {
-        Color c = g.getColor();
-        g.setColor(Color.white);
-//        g.drawString("子弹的数量:" + objects.size(), 10, 60);
-//        g.drawString("敌人的数量:" + objects.size(), 10, 80);
-//        g.drawString("爆炸的数量:" + objects.size(), 10, 100);
-        g.setColor(c);
-
+    public void paint(Graphics g)
+    {
         myTank.paint(g);
 
         for (int i = 0; i < objects.size(); i++) {
@@ -54,7 +48,7 @@ public class GameModel {
         objects.add(gameObject);
     }
 
-    public void delete(GameObjects gameObject) {
+    public void remove(GameObjects gameObject) {
         objects.remove(gameObject);
     }
 

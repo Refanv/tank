@@ -41,11 +41,14 @@ public class Bullet extends GameObjects{
 	}
 
 	public void paint(Graphics g) {
-		if(!living) {
-			gameModel.delete(this);
+		if(!living)
+		{
+			gameModel.remove(this);
+			return;
 		}
-		
-		switch(dir) {
+
+		switch(dir)
+		{
 		case LEFT:
 			g.drawImage(ResourceMgr.bulletL, x, y, null);
 			break;
@@ -63,8 +66,8 @@ public class Bullet extends GameObjects{
 		move();
 	}
 	
-	private void move() {
-		
+	private void move()
+	{
 		switch (dir) {
 		case LEFT:
 			x -= SPEED;
@@ -88,20 +91,5 @@ public class Bullet extends GameObjects{
 		
 	}
 
-//	public void collideWith(Tank tank) {
-//		if(this.group == tank.getGroup()) return;
-//
-//		if(rect.intersects(tank.rect)) {
-//			tank.die();
-//			this.die();
-//			int eX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
-//			int eY = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
-//			gameModel.add(new Explode(eX, eY, gameModel));
-//		}
-//
-//	}
-
-	void die() {
-		this.living = false;
-	}
+	void die() { this.living = false; }
 }

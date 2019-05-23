@@ -7,9 +7,12 @@ public class BulletTankCollider implements Collider {
     {
         if (gameObjects1 instanceof Bullet && gameObjects2 instanceof Tank)
         {
-            collideWith((Bullet) gameObjects1, (Tank)gameObjects2);
-        } else if (gameObjects1 instanceof Tank && gameObjects2 instanceof Bullet) {
-            collideWith((Bullet) gameObjects2, (Tank)gameObjects1);
+            Bullet bullet = (Bullet)gameObjects1;
+            Tank tank = (Tank)gameObjects2;
+            collideWith(bullet, tank);
+        } else if (gameObjects1 instanceof Tank && gameObjects2 instanceof Bullet){
+//            collideWith((Bullet) gameObjects2, (Tank)gameObjects1);
+            collide(gameObjects2, gameObjects1);
         }else return;
     }
 
@@ -18,12 +21,13 @@ public class BulletTankCollider implements Collider {
         if (bullet.getGroup() == tank.getGroup()) return;
 //        if (bullet.isAlive() || tank.isAlive())
 
-        if (bullet.rect.intersects(tank.rect)) {
-            tank.die();
-            bullet.die();
+        if (bullet.rect.intersects(tank.rect))
+        {
             int eX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
 			int eY = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
-			bullet.gameModel.add(new Explode(eX, eY, bullet.gameModel));
+			new Explode(eX, eY);
+            tank.die();
+            bullet.die();
         }
     }
 }

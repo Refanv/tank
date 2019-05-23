@@ -93,7 +93,8 @@ public class TankFrame extends Frame {
 		}
 
 		@Override
-		public void keyReleased(KeyEvent e) {
+		public void keyReleased(KeyEvent e)
+		{
 			int key = e.getKeyCode();
 			switch (key) {
 			case KeyEvent.VK_LEFT:
@@ -123,6 +124,7 @@ public class TankFrame extends Frame {
 		private void setMainTankDir()
 		{
 			Tank myTank = gameModel.getMainTank();
+
 			if (!bL && !bU && !bR && !bD)
 				myTank.setMoving(false);
 			else {

@@ -14,9 +14,9 @@ public class PropertyMgr {
 		}
 	}
 	
-	public static Object get(String key) {
-		if(props == null) return null;
-		return props.get(key);
+	public static String get(String key) {
+//		if(props == null) return null;
+		return (String)props.get(key);
 	}
 	
 	public static void main(String[] args) {
