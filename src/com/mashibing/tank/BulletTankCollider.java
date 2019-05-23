@@ -3,22 +3,25 @@ package com.mashibing.tank;
 public class BulletTankCollider implements Collider {
 
     @Override
-    public void collide(GameObjects gameObjects1, GameObjects gameObjects2)
+    public boolean collide(GameObjects gameObjects1, GameObjects gameObjects2)
     {
         if (gameObjects1 instanceof Bullet && gameObjects2 instanceof Tank)
         {
             Bullet bullet = (Bullet)gameObjects1;
             Tank tank = (Tank)gameObjects2;
-            collideWith(bullet, tank);
-        } else if (gameObjects1 instanceof Tank && gameObjects2 instanceof Bullet){
+            if (collideWith(bullet, tank)) return false;
+            else return true;
+        } else if (gameObjects1 instanceof Tank && gameObjects2 instanceof Bullet)
+        {
 //            collideWith((Bullet) gameObjects2, (Tank)gameObjects1);
-            collide(gameObjects2, gameObjects1);
-        }else return;
+            if (collide(gameObjects2, gameObjects1)) return false;
+            else return true;
+        }else return true;
     }
 
-    private void collideWith(Bullet bullet, Tank tank)
+    private boolean collideWith(Bullet bullet, Tank tank)
     {
-        if (bullet.getGroup() == tank.getGroup()) return;
+        if (bullet.getGroup() == tank.getGroup()) return false;
 //        if (bullet.isAlive() || tank.isAlive())
 
         if (bullet.rect.intersects(tank.rect))
@@ -28,6 +31,8 @@ public class BulletTankCollider implements Collider {
 			new Explode(eX, eY);
             tank.die();
             bullet.die();
-        }
+            return true;
+        }else
+            return false;
     }
 }

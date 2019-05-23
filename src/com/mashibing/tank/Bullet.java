@@ -14,22 +14,20 @@ public class Bullet extends GameObjects{
 	private Dir dir;
 	
 	private boolean living = true;
-	GameModel gameModel;
 	private Group group = Group.BAD;
 
-	public Bullet(int bX, int bY, Dir dir, Group group, GameModel gameModel) {
+	public Bullet(int bX, int bY, Dir dir, Group group) {
 		this.x = bX;
 		this.y = bY;
 		this.dir = dir;
 		this.group = group;
-		this.gameModel = gameModel;
 
 		rect.x = this.x;
 		rect.y = this.y;
 		rect.width = WIDTH;
 		rect.height = HEIGHT;
 
-		gameModel.add(this);
+		GameModel.getGm().add(this);
 	}
 
     public Group getGroup() {
@@ -43,7 +41,7 @@ public class Bullet extends GameObjects{
 	public void paint(Graphics g) {
 		if(!living)
 		{
-			gameModel.remove(this);
+			GameModel.getGm().remove(this);
 			return;
 		}
 

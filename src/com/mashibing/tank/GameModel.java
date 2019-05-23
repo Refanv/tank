@@ -7,16 +7,16 @@ import java.util.List;
 public class GameModel {
     private static final GameModel gm = new GameModel();
 
-    Tank myTank = new Tank(200, 400, Dir.DOWN, Group.GOOD, this);
+    Tank myTank = new Tank(200, 400, Dir.DOWN, Group.GOOD);
 
     private List<GameObjects> objects = new ArrayList<>();
-    private Collider collider = new BulletTankCollider();
+    private ColliderChain chain = new ColliderChain();
 
     private GameModel() {
         int initTankCount = Integer.parseInt(PropertyMgr.get("initTankCount"));
         //初始化敌方坦克
         for (int i = 0; i < initTankCount; i++) {
-            add(new Tank(50 + i * 80, 200, Dir.DOWN, Group.BAD, this));
+            add(new Tank(20 + i % 8 * 140, (i/8 + 1)*200, Dir.DOWN, Group.BAD));
         }
 
     }
@@ -35,11 +35,13 @@ public class GameModel {
         //collision detect
 
         List<GameObjects> temp = new ArrayList<>(objects);
-        for (int i = 0; i < temp.size(); i++) {
+        for (int i = 0; i < temp.size(); i++)
+        {
             GameObjects object = temp.get(i);
-            for (int j = i + 1; j < temp.size(); j++) {
+            for (int j = i + 1; j < temp.size(); j++)
+            {
                 GameObjects object2 = temp.get(j);
-                collider.collide(object, object2);
+                chain.collide(object, object2);
             }
         }
     }

@@ -8,7 +8,7 @@ public class FourDirFireStrtegy extends FireStrategy<Tank> {
 
         for(Dir dir : Dir.values())
         {
-            new Bullet(bX, bY, dir, tank.getGroup(), GameModel.getGm());
+            new Bullet(bX, bY, dir, tank.getGroup());
         }
 
         new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
