@@ -1,4 +1,4 @@
-package com.mashibing.tank;
+package com.tank;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -10,13 +10,12 @@ public class Bullet extends MoveObjects{
 	private Dir dir;
 	private boolean living = true;
 	private Group group = Group.BAD;
-	private static final int SPEED = 6;
 
 	Rectangle rect = new Rectangle();
 	private int x, y;
 
 	public Bullet(int bX, int bY, Dir dir, Group group) {
-        super(dir, 6);
+        super(6);
         this.x = bX;
 		this.y = bY;
 		this.dir = dir;
@@ -27,12 +26,12 @@ public class Bullet extends MoveObjects{
 		rect.width = WIDTH;
 		rect.height = HEIGHT;
 
-		GameModel.getGm().add(this);
+		GameModel.getInstance().add(this);
 	}
 
 	public void paint(Graphics g) {
         if (!living) {
-            GameModel.getGm().remove(this);
+            GameModel.getInstance().remove(this);
             return;
         }
 
@@ -53,35 +52,20 @@ public class Bullet extends MoveObjects{
 
         move();
 	}
-	
-	private void move()
-	{
+
+
+    private void move()
+	{//TODO
 //        switch (dir) {
-//            case LEFT:
-//                x -= SPEED;
-//                break;
-//            case UP:
-//                y -= SPEED;
-//                break;
-//            case RIGHT:
-//                x += SPEED;
-//                break;
-//            case DOWN:
-//                y += SPEED;
-//                break;
-//            default:
-//                break;
-//        }
-        GameModel.getGm().xy(this);
+        GameModel.getInstance().xy(this);
 		//update rect
 		rect.x = this.x;
 		rect.y = this.y;
 		
 		if(x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) living = false;
-		
 	}
 
-    void die() {
+    public void die() {
         this.living = false;
     }
 
@@ -91,6 +75,11 @@ public class Bullet extends MoveObjects{
 
     public void setGroup(Group group) {
         this.group = group;
+    }
+
+    @Override
+    public Rectangle getRectangle() {
+        return rect;
     }
 
     @Override

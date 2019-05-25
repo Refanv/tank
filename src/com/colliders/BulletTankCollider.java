@@ -1,4 +1,6 @@
-package com.mashibing.tank;
+package com.colliders;
+
+import com.tank.*;
 
 public class BulletTankCollider implements Collider {
 
@@ -19,20 +21,18 @@ public class BulletTankCollider implements Collider {
         }else return true;
     }
 
-    private boolean collideWith(Bullet bullet, Tank tank)
-    {
-        if (bullet.getGroup() == tank.getGroup()) return false;
+    private boolean collideWith(Bullet bullet, Tank tank) {
+        if (bullet.getGroup() == tank.getGroup() | tank.getGroup() == Group.GOOD) return false;
 //        if (bullet.isAlive() || tank.isAlive())
 
-        if (bullet.rect.intersects(tank.rect))
-        {
-            int eX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
-			int eY = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
-			new Explode(eX, eY);
+        if (bullet.getRectangle().intersects(tank.getRectangle())) {
+            int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
+            int eY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
+            new Explode(eX, eY);
             tank.die();
             bullet.die();
             return true;
-        }else
+        } else
             return false;
     }
 }

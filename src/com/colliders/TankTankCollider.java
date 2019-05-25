@@ -1,4 +1,7 @@
-package com.mashibing.tank;
+package com.colliders;
+
+import com.tank.GameObjects;
+import com.tank.Tank;
 
 public class TankTankCollider implements Collider {
 
@@ -12,7 +15,7 @@ public class TankTankCollider implements Collider {
     }
 
     private void collideWith(Tank tank1, Tank tank2) {
-        if (tank1.rect.intersects(tank2.rect))
+        if (tank1.getRectangle().intersects(tank2.getRectangle()))
         {
             tank1.back();
             tank2.back();

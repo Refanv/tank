@@ -1,4 +1,8 @@
-package com.mashibing.tank;
+package com.colliders;
+
+import com.tank.Bullet;
+import com.tank.Explode;
+import com.tank.GameObjects;
 
 public class BulletBulletCollider implements Collider {
     @Override
@@ -12,11 +16,11 @@ public class BulletBulletCollider implements Collider {
         }
     }
 
-    private boolean collideWith(Bullet gameObjects1, Bullet gameObjects2) {
-        if (gameObjects1.rect.intersects(gameObjects2.rect)) {
-            new Explode(gameObjects1.rect.x, gameObjects2.rect.y);
-            gameObjects1.die();
-            gameObjects2.die();
+    private boolean collideWith(Bullet bullet1, Bullet bullet) {
+        if (bullet.getRectangle().intersects(bullet1.getRectangle())) {
+            new Explode(bullet.getRectangle().x, bullet.getRectangle().y);
+            bullet1.die();
+            bullet.die();
             return true;
         } else
             return false;

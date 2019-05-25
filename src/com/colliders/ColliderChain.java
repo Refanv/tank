@@ -1,9 +1,11 @@
-package com.mashibing.tank;
+package com.colliders;
+
+import com.tank.GameObjects;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class ColliderChain implements Collider{
+public class ColliderChain implements Collider {
     private List<Collider> colliders = new LinkedList<>();
 
     public ColliderChain(){

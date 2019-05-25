@@ -1,26 +1,42 @@
-package com.mashibing.tank;
+package com.tank;
+
+import com.colliders.ColliderChain;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameModel {
-    private static final GameModel gm = new GameModel();
+    private static final GameModel INSTANCE = new GameModel();
+    static {
+        INSTANCE.init();
+    }
 
     private List<GameObjects> objects = new ArrayList<>();
     private ColliderChain chain = new ColliderChain();
-    Tank myTank = new Tank(200, 400, Dir.DOWN, Group.GOOD);
+    Tank myTank;
 
     private GameModel() {
-        int initTankCount = Integer.parseInt(PropertyMgr.get("initTankCount"));
-        //初始化敌方坦克
-        for (int i = 0; i < initTankCount; i++) {
-            add(new Tank(20 + i % 8 * 140, (i / 8 + 1) * 200, Dir.DOWN, Group.BAD));
-        }
     }
 
-    public static GameModel getGm() {
-        return gm;
+    private void init() {
+        myTank = new Tank(500, 600, Dir.DOWN, Group.GOOD);
+
+        //初始化敌方坦克
+        int initTankCount = Integer.parseInt(PropertyMgr.get("initTankCount"));
+        for (int i = 0; i < initTankCount; i++) {
+            new Tank(20 + i % 8 * 140, (i / 8 + 1) * 200, Dir.DOWN, Group.BAD);
+        }
+
+        //wall
+        add(new Wall(80, 80, 200, 50));
+        add(new Wall(550, 100, 200, 50));
+        add(new Wall(300, 300, 50, 300));
+        add(new Wall(550, 300, 50, 200));
+    }
+
+    public static GameModel getInstance() {
+        return INSTANCE;
     }
 
     public void paint(Graphics g) {
@@ -41,13 +57,12 @@ public class GameModel {
         }
     }
 
-    void xy(MoveObjects moveObject) {//方法—局部变量
+    void xy(MoveObjects moveObject) {//方法—局部变量；Java方法-值传递
         int x = moveObject.getX();
         int y = moveObject.getY();
         int SPEED = moveObject.SPEED;
         Dir dir = moveObject.getDir();
 
-//        switch (moveObject.dir) {
         switch (dir) {
             case LEFT:
                 x -= SPEED;

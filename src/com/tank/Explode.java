@@ -1,6 +1,6 @@
-package com.mashibing.tank;
+package com.tank;
 
-import java.awt.Graphics;
+import java.awt.*;
 
 public class Explode extends GameObjects{
 	public static int WIDTH = ResourceMgr.explodes[0].getWidth();
@@ -14,7 +14,7 @@ public class Explode extends GameObjects{
 		this.x = x;
 		this.y = y;
 
-		GameModel.getGm().add(this);
+		GameModel.getInstance().add(this);
 		new Thread(()->new Audio("audio/explode.wav").play()).start();
 	}
 
@@ -23,6 +23,11 @@ public class Explode extends GameObjects{
 		g.drawImage(ResourceMgr.explodes[step++], x, y, null);
 		
 		if(step >= ResourceMgr.explodes.length) 
-			GameModel.getGm().remove(this);
+			GameModel.getInstance().remove(this);
+	}
+
+	@Override
+	public Rectangle getRectangle() {
+		return null;
 	}
 }

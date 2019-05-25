@@ -1,4 +1,4 @@
-package com.mashibing.tank;
+package com.tank;
 
 import java.awt.Color;
 import java.awt.Frame;
@@ -8,9 +8,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 public class TankFrame extends Frame {
 
@@ -54,7 +51,7 @@ public class TankFrame extends Frame {
 	@Override
 	public void paint(Graphics g)
 	{
-		GameModel.getGm().paint(g);
+		GameModel.getInstance().paint(g);
 	}
 
 	class MyKeyListener extends KeyAdapter
@@ -109,7 +106,7 @@ public class TankFrame extends Frame {
 				break;
 
 			case KeyEvent.VK_CONTROL:
-				GameModel.getGm().getMainTank().fire();
+				GameModel.getInstance().getMainTank().fire();
 				break;
 
 			default:
@@ -121,7 +118,7 @@ public class TankFrame extends Frame {
 
 		private void setMainTankDir()
 		{
-			Tank myTank = GameModel.getGm().getMainTank();
+			Tank myTank = GameModel.getInstance().getMainTank();
 
 			if (!bL && !bU && !bR && !bD)
 				myTank.setMoving(false);

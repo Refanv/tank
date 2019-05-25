@@ -1,4 +1,8 @@
-package com.mashibing.tank;
+package com.tank;
+
+import com.fireStrtegy.DefaultFireStrtegy;
+import com.fireStrtegy.FireStrategy;
+import com.fireStrtegy.FourDirFireStrtegy;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -7,7 +11,6 @@ import java.util.Random;
 public class Tank extends MoveObjects {
 	public static int WIDTH = ResourceMgr.goodTankU.getWidth();
 	public static int HEIGHT = ResourceMgr.goodTankU.getHeight();
-	private int SPEED = 2;
     private Dir dir = Dir.DOWN;
     private Group group = Group.BAD;
     private boolean moving = true;
@@ -18,33 +21,33 @@ public class Tank extends MoveObjects {
     int oldX, oldY;
 
     FireStrategy<Tank> fireStrategy;
-    Rectangle rect = new Rectangle();
+
+	Rectangle rect = new Rectangle();
 
 	public Tank(int x, int y, Dir dir, Group group) {
-		super(dir, 2);
+		super(5);
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
 		this.group = group;
-		if (group == Group.GOOD)
-		{
+		if (group == Group.GOOD) {
 			fireStrategy = new FourDirFireStrtegy();
-//			SPEED = 10;
-		}
-		else fireStrategy = new DefaultFireStrtegy();
+			SPEED = 10;
+			moving = false;
+		} else fireStrategy = new DefaultFireStrtegy();
 
-		rect.x = this.x;
-		rect.y = this.y;
+		rect.x = x;
+		rect.y = y;
 		rect.width = WIDTH;
 		rect.height = HEIGHT;
 
-//		GameModel.getGm().add(this);
+		GameModel.getInstance().add(this);
 	}
 
 	public void paint(Graphics g)
 	{
 		if (!living) {
-			GameModel.getGm().remove(this);
+			GameModel.getInstance().remove(this);
 			return;
 		}
 
@@ -67,43 +70,26 @@ public class Tank extends MoveObjects {
 
 	}
 
-	public void fire() {
+	void fire() {
 	    fireStrategy.fire(this);
 	}
 
 	private void move() {
-		if(!moving) return ;
+		if(!moving) return;
+
 		oldX = x;
 		oldY = y;
 
-		GameModel.getGm().xy(this);
-//		switch (dir)
-//		{
-//			case LEFT:
-//				x -= SPEED;
-//				break;
-//			case UP:
-//				y -= SPEED;
-//				break;
-//			case RIGHT:
-//				x += SPEED;
-//				break;
-//			case DOWN:
-//				y += SPEED;
-//				break;
-//		}
+		GameModel.getInstance().xy(this);
+		boundsCheck();
 
 		if(this.group == Group.BAD && random.nextInt(100) > 97)
 			this.fire();
 
-		if(this.group == Group.BAD && random.nextInt(100) > 95)
-		{
+		if(this.group == Group.BAD && random.nextInt(100) < 2)
 			randomDir();
-//			super.dir = dir;
-		}
+//		dir = Dir.values()[random.nextInt(4)];
 
-
-		boundsCheck();
 		//update rect
 		rect.x = this.x;
 		rect.y = this.y;
@@ -111,12 +97,20 @@ public class Tank extends MoveObjects {
 
 	private void boundsCheck()
 	{
-		if (this.x < 2) x = 2;
-		if (this.y < 28) y = 28;
-//		if (this.x > TankFrame.GAME_WIDTH- Tank.WIDTH -2) x = TankFrame.GAME_WIDTH - Tank.WIDTH -2;
-		if (this.x > TankFrame.GAME_WIDTH- Tank.WIDTH -2) x = oldX;
-//		if (this.y > TankFrame.GAME_HEIGHT - Tank.HEIGHT -2 ) y = TankFrame.GAME_HEIGHT -Tank.HEIGHT -2;
-		if (this.y > TankFrame.GAME_HEIGHT - Tank.HEIGHT -2 ) y = oldY;
+		if (this.x < 2) {
+			x = 2;
+			randomDir();
+		}
+		if (this.y < 28) {
+			y = 28;
+			randomDir();
+		}
+		if (this.x > TankFrame.GAME_WIDTH- Tank.WIDTH -2 | y > TankFrame.GAME_HEIGHT - Tank.HEIGHT -2) {
+			x = oldX;
+			y = oldY;
+			randomDir();
+//			if (group == Group.BAD) randomDir();
+		}
 	}
 
 	public void back()
@@ -125,15 +119,23 @@ public class Tank extends MoveObjects {
 		y = oldY;
 		randomDir();
 	}
-	private void randomDir() { this.dir = Dir.values()[random.nextInt(4)]; }//[]运算符
 
-	Dir getDir() {return dir;}
+	private void randomDir() {
+		if (group == Group.GOOD) return;
+		Dir temp = dir;
 
-	int getX() {
+		do {
+			dir = Dir.values()[random.nextInt(4)];
+		} while (temp == dir);
+	}
+
+	public Dir getDir() {return dir;}
+
+	public int getX() {
 		return x;
 	}
 
-	Group getGroup() {
+	public Group getGroup() {
 		return group;
 	}
 
@@ -141,7 +143,7 @@ public class Tank extends MoveObjects {
 		this.group = group;
 	}
 
-	int getY() {
+	public int getY() {
 		return y;
 	}
 
@@ -163,9 +165,13 @@ public class Tank extends MoveObjects {
 		this.y = y;
 	}
 
-	void die() {this.living = false;}
+	public void die() {this.living = false;}
 
 	boolean isMoving() {
 		return moving;
+	}
+
+	public Rectangle getRectangle() {
+		return rect;
 	}
 }
