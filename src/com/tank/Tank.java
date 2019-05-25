@@ -38,6 +38,8 @@ public class Tank extends MoveObjects {
 
 		rect.x = x;
 		rect.y = y;
+		oldX = x;
+		oldY = y;
 		rect.width = WIDTH;
 		rect.height = HEIGHT;
 

@@ -24,8 +24,7 @@ public class Wall extends GameObjects {
         graphics.setColor(c);
     }
 
-    @Override
     public Rectangle getRectangle() {
-        return null;
+        return rectangle;
     }
 }

@@ -13,6 +13,8 @@ public abstract class MoveObjects extends GameObjects {
         this.SPEED = speed;
     }
 
+    public abstract Rectangle getRectangle();
+
     abstract int getX();
 
     abstract int getY();

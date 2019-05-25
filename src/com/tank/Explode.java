@@ -25,9 +25,4 @@ public class Explode extends GameObjects{
 		if(step >= ResourceMgr.explodes.length) 
 			GameModel.getInstance().remove(this);
 	}
-
-	@Override
-	public Rectangle getRectangle() {
-		return null;
-	}
 }

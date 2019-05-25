@@ -29,10 +29,10 @@ public class GameModel {
         }
 
         //wall
-        add(new Wall(80, 80, 200, 50));
-        add(new Wall(550, 100, 200, 50));
-        add(new Wall(300, 300, 50, 300));
-        add(new Wall(550, 300, 50, 200));
+        add(new Wall(80, 120, 400, 30));
+        add(new Wall(600, 100, 200, 50));
+        add(new Wall(250, 300, 50, 400));
+        add(new Wall(520, 300, 50, 200));
     }
 
     public static GameModel getInstance() {
@@ -52,6 +52,7 @@ public class GameModel {
             GameObjects object = temp.get(i);
             for (int j = i + 1; j < temp.size(); j++) {
                 GameObjects object2 = temp.get(j);
+
                 chain.collide(object, object2);
             }
         }
