@@ -8,21 +8,18 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
 
+/**耦合度：当修改来一个类之后，另一个类也要随之改变
+ * 级别： 1.继承 2.聚合（属性） 3.a类不是b类的属性，但是在a类当方法里，方法当参数，或者方法当的返回值 4.耦合度为0，互相没有关系
+ */
 public class Tank extends MoveObjects {
 	public static int WIDTH = ResourceMgr.goodTankU.getWidth();
 	public static int HEIGHT = ResourceMgr.goodTankU.getHeight();
-    private Dir dir = Dir.DOWN;
-    private Group group = Group.BAD;
+
+    int oldX, oldY;
     private boolean moving = true;
-    private boolean living = true;
     private Random random = new Random();
 
-    private int x, y;
-    int oldX, oldY;
-
     FireStrategy<Tank> fireStrategy;
-
-	Rectangle rect = new Rectangle();
 
 	public Tank(int x, int y, Dir dir, Group group) {
 		super(5);
@@ -36,12 +33,10 @@ public class Tank extends MoveObjects {
 			moving = false;
 		} else fireStrategy = new DefaultFireStrtegy();
 
-		rect.x = x;
-		rect.y = y;
+		super.initRect(WIDTH, HEIGHT);
+
 		oldX = x;
 		oldY = y;
-		rect.width = WIDTH;
-		rect.height = HEIGHT;
 
 		GameModel.getInstance().add(this);
 	}
@@ -76,25 +71,24 @@ public class Tank extends MoveObjects {
 	    fireStrategy.fire(this);
 	}
 
-	private void move() {
+	void move() {
 		if(!moving) return;
 
 		oldX = x;
 		oldY = y;
 
-		GameModel.getInstance().xy(this);
+		super.move();
 		boundsCheck();
+
+		//update rect
+		rect.x = this.x;
+		rect.y = this.y;
 
 		if(this.group == Group.BAD && random.nextInt(100) > 97)
 			this.fire();
 
 		if(this.group == Group.BAD && random.nextInt(100) < 2)
-			randomDir();
-//		dir = Dir.values()[random.nextInt(4)];
-
-		//update rect
-		rect.x = this.x;
-		rect.y = this.y;
+			dir = Dir.values()[random.nextInt(4)];
 	}
 
 	private void boundsCheck()
@@ -111,7 +105,6 @@ public class Tank extends MoveObjects {
 			x = oldX;
 			y = oldY;
 			randomDir();
-//			if (group == Group.BAD) randomDir();
 		}
 	}
 
@@ -124,29 +117,11 @@ public class Tank extends MoveObjects {
 
 	private void randomDir() {
 		if (group == Group.GOOD) return;
-		Dir temp = dir;
 
+		Dir temp = dir;
 		do {
 			dir = Dir.values()[random.nextInt(4)];
 		} while (temp == dir);
-	}
-
-	public Dir getDir() {return dir;}
-
-	public int getX() {
-		return x;
-	}
-
-	public Group getGroup() {
-		return group;
-	}
-
-	void setGroup(Group group) {
-		this.group = group;
-	}
-
-	public int getY() {
-		return y;
 	}
 
 	void setDir(Dir dir) {
@@ -155,25 +130,5 @@ public class Tank extends MoveObjects {
 
 	void setMoving(boolean moving) {
 		this.moving = moving;
-	}
-
-	@Override
-	void setX(int x) {
-		this.x = x;
-	}
-
-	@Override
-	void setY(int y) {
-		this.y = y;
-	}
-
-	public void die() {this.living = false;}
-
-	boolean isMoving() {
-		return moving;
-	}
-
-	public Rectangle getRectangle() {
-		return rect;
 	}
 }

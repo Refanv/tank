@@ -4,24 +4,71 @@ import java.awt.*;
 
 public abstract class MoveObjects extends GameObjects {
 
-    int x, y;
     Dir dir;
-    Rectangle rectangle;
+    Group group;
+    Rectangle rect = new Rectangle();
+    boolean living = true;
     int SPEED;
 
     public MoveObjects(int speed) {
         this.SPEED = speed;
     }
 
-    public abstract Rectangle getRectangle();
+    void initRect(int width, int height){
+        rect.x = x;
+        rect.y = y;
+        rect.width = width;
+        rect.height = height;
+    }
 
-    abstract int getX();
+    void move()
+    {
+        switch (dir) {
+            case LEFT:
+                x -= SPEED;
+                break;
+            case UP:
+                y -= SPEED;
+                break;
+            case RIGHT:
+                x += SPEED;
+                break;
+            case DOWN:
+                y += SPEED;
+                break;
+            default:
+                break;
+        }
+    }
 
-    abstract int getY();
+    public Rectangle getRectangle() {
+        return rect;
+    }
 
-    abstract Dir getDir();
+    public Dir getDir() {
+        return dir;
+    }
 
-    abstract void setX(int x);
+    public void die() {
+        this.living = false;
+    }
 
-    abstract void setY(int y);
+    public Group getGroup() {
+        return group;
+    }
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
 }
