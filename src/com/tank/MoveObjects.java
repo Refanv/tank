@@ -16,7 +16,7 @@ public abstract class MoveObjects extends GameObjects {
         group = group_;
     }
 
-    void initRect(int width, int height){
+    void init_MO_Rect(int width, int height){
         rect.x = x;
         rect.y = y;
         rect.width = width;
@@ -58,19 +58,8 @@ public abstract class MoveObjects extends GameObjects {
     public Group getGroup() {
         return group;
     }
-    public int getX() {
-        return x;
-    }
 
-    public int getY() {
-        return y;
+    public boolean isLiving(){
+        return living;
     }
-
-//    public void setX(int x) {
-//        this.x = x;
-//    }
-//
-//    public void setY(int y) {
-//        this.y = y;
-//    }
 }

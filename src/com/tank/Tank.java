@@ -22,7 +22,7 @@ public class Tank extends MoveObjects {
 
 		width = ResourceMgr.goodTankU.getWidth();
 		height = ResourceMgr.goodTankU.getHeight();
-		super.initRect(width, height);
+		super.init_MO_Rect(width, height);
 
 		SPEED = Integer.parseInt(PropertyMgr.get("tankSpeed"));
 		if (group == Group.GOOD)

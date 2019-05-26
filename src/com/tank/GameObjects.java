@@ -11,11 +11,21 @@ public abstract class GameObjects {
         this.y = y;
     }
 
-    void initGO_rect(int w, int h){
+    void init_GO_W_H(int w, int h){
         width = w;
         height = h;
     }
-    abstract void paint(Graphics graphics);
+
+    public abstract void paint(Graphics graphics);
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
     public int getWidth(){
         return width;
     }
@@ -23,5 +33,4 @@ public abstract class GameObjects {
     public int getHeight() {
         return height;
     }
-//    public abstract Rectangle getRectangle();
 }

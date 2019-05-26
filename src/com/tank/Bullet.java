@@ -8,16 +8,18 @@ public class Bullet extends MoveObjects{
 
 	public Bullet(int bX, int bY, Dir dir, Group group) {
         super(bX, bY, dir, group);
-        super.initRect(WIDTH, HEIGHT);
-        super.initGO_rect(WIDTH, HEIGHT);
+        super.init_MO_Rect(WIDTH, HEIGHT);
+        super.init_GO_W_H(WIDTH, HEIGHT);
 
         SPEED = Integer.parseInt(PropertyMgr.get("bulletSpeed"));
 
-		GameModel.getInstance().add(this);
+//		if (group == Group.BAD)GameModel.getInstance().add(this);
+        GameModel.getInstance().add(this);
 	}
 
-	void paint(Graphics g) {
+	public void paint(Graphics g) {
         if (!living) {
+            System.out.println("Bullet" + toString());
             GameModel.getInstance().remove(this);
             return;
         }

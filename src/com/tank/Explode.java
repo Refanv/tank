@@ -11,7 +11,7 @@ public class Explode extends GameObjects{
 
 	public Explode(int x, int y) {
 		super(x, y);
-		initGO_rect(WIDTH, HEIGHT);
+		init_GO_W_H(WIDTH, HEIGHT);
 
 		GameModel.getInstance().add(this);
 		new Thread(()->new Audio("audio/explode.wav").play()).start();
