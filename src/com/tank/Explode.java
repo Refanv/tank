@@ -5,12 +5,13 @@ import java.awt.*;
 public class Explode extends GameObjects{
 	public static int WIDTH = ResourceMgr.explodes[0].getWidth();
 	public static int HEIGHT = ResourceMgr.explodes[0].getHeight();
-	
+
 	private int step = 0;
 
 
 	public Explode(int x, int y) {
 		super(x, y);
+		initGO_rect(WIDTH, HEIGHT);
 
 		GameModel.getInstance().add(this);
 		new Thread(()->new Audio("audio/explode.wav").play()).start();

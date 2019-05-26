@@ -11,6 +11,10 @@ public abstract class GameObjects {
         this.y = y;
     }
 
+    void initGO_rect(int w, int h){
+        width = w;
+        height = h;
+    }
     abstract void paint(Graphics graphics);
     public int getWidth(){
         return width;

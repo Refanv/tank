@@ -1,7 +1,6 @@
 package com.tank;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
 
 public class Bullet extends MoveObjects{
 	public static int WIDTH = ResourceMgr.bulletD.getWidth();
@@ -10,6 +9,7 @@ public class Bullet extends MoveObjects{
 	public Bullet(int bX, int bY, Dir dir, Group group) {
         super(bX, bY, dir, group);
         super.initRect(WIDTH, HEIGHT);
+        super.initGO_rect(WIDTH, HEIGHT);
 
         SPEED = Integer.parseInt(PropertyMgr.get("bulletSpeed"));
 
