@@ -26,8 +26,8 @@ public class BulletTankCollider implements Collider {
 //        if (bullet.isAlive() || tank.isAlive())
 
         if (bullet.getRectangle().intersects(tank.getRectangle())) {
-            int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
-            int eY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
+            int eX = tank.getX() + tank.getWidth() / 2 - Explode.WIDTH / 2;
+            int eY = tank.getY() + tank.getHeight() / 2 - Explode.HEIGHT / 2;
             new Explode(eX, eY);
             tank.die();
             bullet.die();

@@ -8,8 +8,8 @@ import com.tank.Tank;
 public class FourDirFireStrtegy extends FireStrategy<Tank> {
     @Override
     public void fire(Tank tank) {
-        int bX = tank.getRectangle().x + Tank.WIDTH/2 - Bullet.WIDTH/2;
-        int bY = tank.getRectangle().y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
+        int bX = tank.getRectangle().x + tank.getWidth()/2 - Bullet.WIDTH/2;
+        int bY = tank.getRectangle().y + tank.getHeight()/2 - Bullet.HEIGHT/2;
 
         for(Dir dir : Dir.values())
         {

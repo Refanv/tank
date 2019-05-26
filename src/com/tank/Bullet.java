@@ -7,8 +7,6 @@ public class Bullet extends MoveObjects{
 	public static int WIDTH = ResourceMgr.bulletD.getWidth();
 	public static int HEIGHT = ResourceMgr.bulletD.getHeight();
 
-//	Rectangle rect = new Rectangle();
-
 	public Bullet(int bX, int bY, Dir dir, Group group) {
         super(bX, bY, dir, group);
         super.initRect(WIDTH, HEIGHT);

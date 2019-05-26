@@ -3,19 +3,14 @@ package com.tank;
 import com.fireStrtegy.DefaultFireStrtegy;
 import com.fireStrtegy.FireStrategy;
 import com.fireStrtegy.FourDirFireStrtegy;
-import javafx.beans.property.Property;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.util.Random;
 
 /**耦合度：当修改来一个类之后，另一个类也要随之改变
  * 级别： 1.继承 2.聚合（属性） 3.a类不是b类的属性，但是在a类的方法里，方法当参数，或者方法的返回值 4.耦合度为0，互相没有关系
  */
 public class Tank extends MoveObjects {
-	public static int WIDTH = ResourceMgr.goodTankU.getWidth();
-	public static int HEIGHT = ResourceMgr.goodTankU.getHeight();
-
     int oldX, oldY;
     private boolean moving = true;
     private Random random = new Random();
@@ -25,6 +20,10 @@ public class Tank extends MoveObjects {
 	public Tank(int x, int y, Dir dir, Group group) {
 		super(x, y, dir, group);
 
+		width = ResourceMgr.goodTankU.getWidth();
+		height = ResourceMgr.goodTankU.getHeight();
+		super.initRect(width, height);
+
 		SPEED = Integer.parseInt(PropertyMgr.get("tankSpeed"));
 		if (group == Group.GOOD)
 		{
@@ -32,8 +31,6 @@ public class Tank extends MoveObjects {
 			SPEED = 10;
 			moving = false;
 		} else fireStrategy = new DefaultFireStrtegy();
-
-		super.initRect(WIDTH, HEIGHT);
 
 		oldX = x;
 		oldY = y;
@@ -102,7 +99,7 @@ public class Tank extends MoveObjects {
 			y = 28;
 			randomDir();
 		}
-		if (this.x > TankFrame.GAME_WIDTH- Tank.WIDTH -2 | y > TankFrame.GAME_HEIGHT - Tank.HEIGHT -2) {
+		if (this.x > TankFrame.GAME_WIDTH- width -2 | y > TankFrame.GAME_HEIGHT - height -2) {
 			x = oldX;
 			y = oldY;
 			randomDir();
