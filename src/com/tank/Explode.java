@@ -10,8 +10,7 @@ public class Explode extends GameObjects{
 
 
 	public Explode(int x, int y) {
-		this.x = x;
-		this.y = y;
+		super(x, y);
 
 		GameModel.getInstance().add(this);
 		new Thread(()->new Audio("audio/explode.wav").play()).start();

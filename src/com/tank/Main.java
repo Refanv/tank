@@ -1,6 +1,7 @@
 package com.tank;
 
 public class Main {
+	private int a = 0;//access
 
 	public static void main(String[] args) throws InterruptedException
 	{

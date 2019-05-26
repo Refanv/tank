@@ -35,11 +35,7 @@ public class GameModel {
         add(new Wall(520, 300, 50, 200));
     }
 
-    public static GameModel getInstance() {
-        return INSTANCE;
-    }
-
-    public void paint(Graphics g) {
+    void paint(Graphics g) {
         myTank.paint(g);
 
         for (int i = 0; i < objects.size(); i++) {
@@ -58,28 +54,8 @@ public class GameModel {
         }
     }
 
-    void xy(MoveObjects moveObject) {//方法—局部变量；Java方法-值传递
-        int x = moveObject.getX();
-        int y = moveObject.getY();
-        int SPEED = moveObject.SPEED;
-        Dir dir = moveObject.getDir();
-
-        switch (dir) {
-            case LEFT:
-                x -= SPEED;
-                break;
-            case UP:
-                y -= SPEED;
-                break;
-            case RIGHT:
-                x += SPEED;
-                break;
-            case DOWN:
-                y += SPEED;
-                break;
-        }
-        moveObject.setX(x);
-        moveObject.setY(y);
+    public static GameModel getInstance() {
+        return INSTANCE;
     }
 
     public void add(GameObjects gameObject) {

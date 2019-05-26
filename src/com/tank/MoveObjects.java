@@ -10,8 +10,10 @@ public abstract class MoveObjects extends GameObjects {
     boolean living = true;
     int SPEED;
 
-    public MoveObjects(int speed) {
-        this.SPEED = speed;
+    public MoveObjects(int x, int y,Dir dir, Group group_) {
+        super(x, y);
+        this.dir = dir;
+        group = group_;
     }
 
     void initRect(int width, int height){
@@ -64,11 +66,11 @@ public abstract class MoveObjects extends GameObjects {
         return y;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
+//    public void setX(int x) {
+//        this.x = x;
+//    }
+//
+//    public void setY(int y) {
+//        this.y = y;
+//    }
 }

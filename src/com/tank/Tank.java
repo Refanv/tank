@@ -3,13 +3,14 @@ package com.tank;
 import com.fireStrtegy.DefaultFireStrtegy;
 import com.fireStrtegy.FireStrategy;
 import com.fireStrtegy.FourDirFireStrtegy;
+import javafx.beans.property.Property;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
 
 /**耦合度：当修改来一个类之后，另一个类也要随之改变
- * 级别： 1.继承 2.聚合（属性） 3.a类不是b类的属性，但是在a类当方法里，方法当参数，或者方法当的返回值 4.耦合度为0，互相没有关系
+ * 级别： 1.继承 2.聚合（属性） 3.a类不是b类的属性，但是在a类的方法里，方法当参数，或者方法的返回值 4.耦合度为0，互相没有关系
  */
 public class Tank extends MoveObjects {
 	public static int WIDTH = ResourceMgr.goodTankU.getWidth();
@@ -22,12 +23,11 @@ public class Tank extends MoveObjects {
     FireStrategy<Tank> fireStrategy;
 
 	public Tank(int x, int y, Dir dir, Group group) {
-		super(5);
-		this.x = x;
-		this.y = y;
-		this.dir = dir;
-		this.group = group;
-		if (group == Group.GOOD) {
+		super(x, y, dir, group);
+
+		SPEED = Integer.parseInt(PropertyMgr.get("tankSpeed"));
+		if (group == Group.GOOD)
+		{
 			fireStrategy = new FourDirFireStrtegy();
 			SPEED = 10;
 			moving = false;
@@ -71,6 +71,7 @@ public class Tank extends MoveObjects {
 	    fireStrategy.fire(this);
 	}
 
+	@Override
 	void move() {
 		if(!moving) return;
 

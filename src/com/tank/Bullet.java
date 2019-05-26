@@ -10,13 +10,10 @@ public class Bullet extends MoveObjects{
 //	Rectangle rect = new Rectangle();
 
 	public Bullet(int bX, int bY, Dir dir, Group group) {
-        super(6);
-        this.x = bX;
-		this.y = bY;
-		this.dir = dir;
-		this.group = group;
-
+        super(bX, bY, dir, group);
         super.initRect(WIDTH, HEIGHT);
+
+        SPEED = Integer.parseInt(PropertyMgr.get("bulletSpeed"));
 
 		GameModel.getInstance().add(this);
 	}
@@ -45,16 +42,14 @@ public class Bullet extends MoveObjects{
         move();
 	}
 
-
-    void move()
-	{//TODO
-//        switch (dir) {
+    @Override
+    void move() {//TODO
 //        GameModel.getInstance().xy(this);
         super.move();
-		//update rect
-		rect.x = this.x;
-		rect.y = this.y;
-		
-		if(x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) living = false;
-	}
+        //update rect
+        rect.x = this.x;
+        rect.y = this.y;
+
+        if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) living = false;
+    }
 }

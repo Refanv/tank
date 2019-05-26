@@ -4,14 +4,12 @@ import java.awt.*;
 
 public class Wall extends GameObjects {
     int w, h;
-    int x, y;
     public Rectangle rectangle;
 
     public Wall(int x, int y, int w, int h) {
+        super(x, y);
         this.w = w;
         this.h = h;
-        this.x = x;
-        this.y = y;
 
         rectangle = new Rectangle(x, y, w, h);
     }
