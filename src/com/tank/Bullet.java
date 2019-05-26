@@ -13,13 +13,11 @@ public class Bullet extends MoveObjects{
 
         SPEED = Integer.parseInt(PropertyMgr.get("bulletSpeed"));
 
-//		if (group == Group.BAD)GameModel.getInstance().add(this);
         GameModel.getInstance().add(this);
 	}
 
 	public void paint(Graphics g) {
-        if (!living) {
-            System.out.println("Bullet" + toString());
+        if (!display) {
             GameModel.getInstance().remove(this);
             return;
         }
@@ -50,6 +48,6 @@ public class Bullet extends MoveObjects{
         rect.x = this.x;
         rect.y = this.y;
 
-        if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) living = false;
+        if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) display = false;
     }
 }

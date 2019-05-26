@@ -5,6 +5,7 @@ import java.awt.*;
 public abstract class GameObjects {
     protected int x,y;
     protected int width, height;
+    protected boolean display = true;
 
     public GameObjects(int x, int y) {
         this.x = x;
@@ -17,6 +18,10 @@ public abstract class GameObjects {
     }
 
     public abstract void paint(Graphics graphics);
+
+    public boolean isDisplay() {
+        return display;
+    }
 
     public int getX() {
         return x;

@@ -1,6 +1,7 @@
 package com.fireStrtegy;
 
 import com.decorator.RectDecortaor;
+import com.decorator.TailDecortaor;
 import com.tank.*;
 
 public class FourDirFireStrtegy extends FireStrategy<Tank> {
@@ -11,7 +12,7 @@ public class FourDirFireStrtegy extends FireStrategy<Tank> {
 
         for(Dir dir : Dir.values()) {
             GameModel.getInstance().add(
-                    new RectDecortaor(bX, bY, new Bullet(bX, bY, dir, tank.getGroup()))
+                    new TailDecortaor(bX, bY, new RectDecortaor(bX, bY, new Bullet(bX, bY, dir, tank.getGroup())))
             );
         }
 

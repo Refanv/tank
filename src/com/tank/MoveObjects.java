@@ -7,7 +7,6 @@ public abstract class MoveObjects extends GameObjects {
     Dir dir;
     Group group;
     Rectangle rect = new Rectangle();
-    boolean living = true;
     int SPEED;
 
     public MoveObjects(int x, int y,Dir dir, Group group_) {
@@ -52,14 +51,10 @@ public abstract class MoveObjects extends GameObjects {
     }
 
     public void die() {
-        this.living = false;
+        display = false;
     }
 
     public Group getGroup() {
         return group;
-    }
-
-    public boolean isLiving(){
-        return living;
     }
 }

@@ -40,7 +40,7 @@ public class Tank extends MoveObjects {
 
 	public void paint(Graphics g)
 	{
-		if (!living) {
+		if (!display) {
 			GameModel.getInstance().remove(this);
 			return;
 		}
